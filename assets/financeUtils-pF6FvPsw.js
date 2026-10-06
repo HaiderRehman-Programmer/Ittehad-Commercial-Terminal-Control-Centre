@@ -1,0 +1,1 @@
+var e=(e,t)=>Math.round(((parseFloat(e)||0)-(parseFloat(t)||0))*100)/100,t=(e=0,t=0,n=0)=>(parseFloat(e)||0)*160+(parseFloat(t)||0)*20+(parseFloat(n)||0),n=e=>new Intl.NumberFormat(`en-PK`,{style:`currency`,currency:`PKR`,minimumFractionDigits:0,maximumFractionDigits:0}).format(e).replace(`PKR`,`Rs.`),r=(t,n)=>e(t,n)<=0?`Clear`:n>0?`Partial`:`Overdue`;export{t as i,n,r,e as t};

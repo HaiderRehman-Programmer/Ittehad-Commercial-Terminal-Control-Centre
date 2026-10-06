@@ -1,0 +1,54 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+server-audit.log
+server-audit-err.log
+
+# Environment & Secrets
+.env
+.env.local
+.env.production
+accounts.txt
+files_with_token.txt
+
+# Diagnostic Dumps & Reports
+eslint.json
+eslint_report.json
+lint_output.txt
+lint_report.json
+lint_results.json
+lint_results.txt
+lint_results_cmd.txt
+lint_runner_debug.txt
+mcl_lint.json
+seo_debug.txt
+test_write_access.txt
+
+# Temporary Directories
+tmp/
+tmp_debug/
+
+# Build & Dependencies
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.roo
+.agent
+
