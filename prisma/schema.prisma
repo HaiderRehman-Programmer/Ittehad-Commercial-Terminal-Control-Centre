@@ -1,0 +1,267 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  password  String
+  role      String   @default("VIEWER") // ADMIN, MANAGER, VIEWER
+  mobile_no String?
+  status    Int      @default(1)
+  createdAt DateTime @default(now())
+  wallet    Wallet?
+
+  @@index([email])
+  @@index([role])
+}
+
+model Wallet {
+  id          String   @id @default(uuid())
+  userId      String   @unique
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  balance     Decimal  @default(0)
+  totalDebit  Decimal  @default(0)
+  totalCredit Decimal  @default(0)
+  updatedAt   DateTime @updatedAt
+}
+
+model Property {
+  id          String   @id @default(uuid())
+  name        String   @unique // Previously shopNumber
+  marla       String?
+  dimensions  String?
+  status      String   @default("available") // UNSOLD, SOLD, RESERVED, token, booked
+  price       Decimal
+  town_id     Int?
+  town        Town?    @relation(fields: [town_id], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  bookings    Booking[]
+  tokens      Token[]
+  transactions Transaction[]
+
+  @@index([status])
+  @@index([town_id])
+}
+
+model Token {
+  id            String   @id @default(uuid())
+  token_no      String?
+  plot_id       String
+  property      Property @relation(fields: [plot_id], references: [id])
+  customer_name String
+  rate          Decimal
+  total_amount  Decimal
+  token_amount  Decimal
+  remaining     Decimal
+  due_date      String?
+  status        String   @default("In-Progress")
+
+  @@index([status])
+  @@index([plot_id])
+}
+
+model Account {
+  id           Int           @id @default(autoincrement())
+  name         String
+  type         String        // income, expense, asset, liability
+  code         String?
+  transactions Transaction[]
+
+  @@index([type])
+}
+
+model Transaction {
+  id            String   @id @default(uuid())
+  date          String
+  debit         Decimal  @default(0)
+  credit        Decimal  @default(0)
+  balance       Decimal?
+  description   String?
+  category      String   @default("Operating")
+  account_id    Int?
+  account       Account? @relation(fields: [account_id], references: [id])
+  customer_id   String?
+  customer      Customer? @relation(fields: [customer_id], references: [id])
+  plot_id       String?
+  property      Property? @relation(fields: [plot_id], references: [id])
+
+  @@index([date])
+  @@index([customer_id])
+  @@index([account_id])
+  @@index([category])
+  @@index([plot_id])
+}
+
+model Customer {
+  id            String   @id @default(uuid())
+  name          String
+  relation_name String?
+  cnic          String?  @unique
+  phone         String
+  address       String?
+  cast          String?
+  reference     String?
+  acre          Float    @default(0)
+  kanal         Float    @default(0)
+  marla         Float    @default(0)
+  next_of_kin_name  String?
+  next_of_kin_phone String?
+  receivable    Decimal    @default(0)
+  received      Decimal    @default(0)
+  remaining     Decimal    @default(0)
+  short_amount  Decimal    @default(0)
+  createdAt     DateTime @default(now())
+  bookings      Booking[]
+  transactions  Transaction[]
+
+  @@index([cnic])
+  @@index([name])
+  @@index([phone])
+}
+
+model Booking {
+  id                 String   @id @default(uuid())
+  booking_no         String?
+  date               String
+  customer_id        String
+  customer           Customer @relation(fields: [customer_id], references: [id], onDelete: Cascade)
+  property_id        String
+  property           Property @relation(fields: [property_id], references: [id], onDelete: Cascade)
+  rate               Decimal    @default(0)
+  total              Decimal    @default(0)
+  advance            Decimal    @default(0)
+  payable            Decimal    @default(0)
+  installment_type   String?
+  no_of_installments Int      @default(0)
+  installment_amount Decimal    @default(0)
+  due_date           String?
+  status             String   @default("In-Progress")
+  agent_id           String?
+  agent              Agent?   @relation(fields: [agent_id], references: [id])
+  installments       Installment[]
+
+  @@index([customer_id])
+  @@index([property_id])
+  @@index([status])
+  @@index([date])
+}
+
+model Installment {
+  id          Int      @id @default(autoincrement())
+  booking_id  String
+  booking     Booking  @relation(fields: [booking_id], references: [id], onDelete: Cascade)
+  due_date    String
+  amount      Decimal
+  paid_amount Decimal    @default(0)
+  status      String   @default("pending") // pending, partial, paid, overdue
+
+  @@index([booking_id])
+}
+
+model InstallmentType {
+  id     Int    @id @default(autoincrement())
+  name   String
+  status Int    @default(1)
+}
+
+model Town {
+  id      Int        @id @default(autoincrement())
+  name    String
+  address String?
+  acre    Float      @default(0)
+  kanal   Float      @default(0)
+  marla   Float      @default(0)
+  status  Int        @default(1)
+  properties Property[]
+}
+
+model Agent {
+  id               String   @id @default(uuid())
+  name             String
+  phone            String?
+  commission_rate  Decimal    @default(5)
+  total_commission Decimal    @default(0)
+  bookings         Booking[]
+}
+
+model Role {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  permissions String?  // Store module permissions as a JSON string
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model LandOwner {
+  id      Int    @id @default(autoincrement())
+  name    String
+  phone   String?
+  address String?
+  acre    Float  @default(0)
+  kanal   Float  @default(0)
+  marla   Float  @default(0)
+}
+
+model TownOwner {
+  id      Int    @id @default(autoincrement())
+  name    String
+  phone   String?
+  address String?
+  acre    Float  @default(0)
+  kanal   Float  @default(0)
+  marla   Float  @default(0)
+}
+
+model PendingPayment {
+  id           Int     @id @default(autoincrement())
+  date         String?
+  from_account String?
+  to_account   String?
+  debit        Decimal   @default(0)
+  credit       Decimal   @default(0)
+  description  String?
+  status       String  @default("Pending")
+}
+
+model TransferRequest {
+  id           Int     @id @default(autoincrement())
+  date         String?
+  from_account String?
+  to_account   String?
+  debit        Decimal   @default(0)
+  credit       Decimal   @default(0)
+  description  String?
+  status       String  @default("Pending")
+}
+
+model Visitor {
+  id          Int     @id @default(autoincrement())
+  date        String?
+  name        String
+  contact     String?
+  cnic        String?
+  address     String?
+  description String?
+}
+
+model AuditLog {
+  id        String   @id @default(uuid())
+  action    String
+  user_id   String?
+  user_name String?
+  details   String
+  severity  String   @default("info")
+  createdAt DateTime @default(now())
+
+  @@index([action])
+  @@index([severity])
+  @@index([createdAt])
+}

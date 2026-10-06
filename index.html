@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="User Guide | Real Estate">
+    <meta name="csrf-token" content="z9JKiqcZk1m3oef3iXqZynPQwtKbTGpR5JlJYJE5">
+    
+    <!-- Open Graph / SEO Social Tags (Internalized) -->
+    <meta property="og:title" content="Ittehad Real Estate ERP | Enterprise Operator Guide">
+    <meta property="og:description" content="High-performance administrative suite for real estate management, financial auditing, and asset tracking.">
+    <meta property="og:type" content="website">
+    
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <title>User Guide | Real Estate</title>
+
+    <!-- External CSS Files (BusinessesWallet URLs) - COMMENTED OUT FOR PERFORMANCE -->
+    <!--
+    <link rel="stylesheet" href="https://estate.businesseswallet.com/assets/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://estate.businesseswallet.com/assets/plugins/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://estate.businesseswallet.com/assets/plugins/flag-icon/flag-icon.min.css">
+    <link rel="stylesheet" href="https://estate.businesseswallet.com/assets/plugins/simple-line-icons/css/simple-line-icons.css">
+    <link rel="stylesheet" href="https://estate.businesseswallet.com/assets/plugins/ionicons/css/ionicons.css">
+    <link rel="stylesheet" href="https://estate.businesseswallet.com/assets/plugins/toastr/toastr.min.css">
+    <link rel="stylesheet" href="https://estate.businesseswallet.com/assets/plugins/chartist/chartist.css">
+    <link rel="stylesheet" href="https://estate.businesseswallet.com/assets/plugins/apex-chart/apexcharts.css">
+    <link rel="stylesheet" href="https://estate.businesseswallet.com/assets/css/app.min.css">
+    <link rel="stylesheet" href="https://estate.businesseswallet.com/assets/css/style.css">
+    <link rel="stylesheet" href="https://estate.businesseswallet.com/assets/css/custom.css">
+    <link rel="stylesheet" href="https://estate.businesseswallet.com/assets/plugins/sweet-alert/sweetalert.min.css">
+    <link rel="stylesheet" href="https://estate.businesseswallet.com/assets/plugins/select2/select2.min.css">
+    <link rel="stylesheet" href="https://estate.businesseswallet.com/assets/plugins/select2/select2-bootstrap.min.css">
+    <link rel="stylesheet" href="https://estate.businesseswallet.com/assets/plugins/datatables/jquery.dataTables.min.css">
+    -->
+
+    <!-- Internal CSS (Embedded Overrides) -->
+    <style>
+      :root {
+          --primary-color: #5D78FF;
+      }
+      /* Ensure sidebar stays vertical and fixed despite external CSS */
+      .app-container {
+          display: flex !important;
+          min-height: 100vh !important;
+      }
+      .sidebar-fixed {
+          position: fixed !important;
+          left: 0 !important;
+          top: 0 !important;
+          height: 100vh !important;
+          width: 260px !important;
+          z-index: 1000 !important;
+      }
+      .main-content-offset {
+          margin-left: 260px !important;
+          width: calc(100% - 260px) !important;
+          flex: 1 !important;
+          background: #f4f7f6 !important;
+      }
+      .bg-primary {
+          background: #5D78FF !important;
+      }
+      .btn-payment-top {
+          position: fixed;
+          bottom: 12rem;
+          right: 10px;
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          transition: all 0.3s;
+          z-index: 9999;
+      }
+      .btn-transfer-top {
+          position: fixed;
+          bottom: 8rem;
+          right: 10px;
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          transition: all 0.3s;
+          z-index: 9999;
+      }
+      .btn-payment-top:hover, .btn-transfer-top:hover {
+          cursor: pointer;
+          transform: scale(1.05);
+      }
+    </style>
+
+    <!-- [if lt IE 9] >
+    <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+    <![endif] -->
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <div class="modal fade" id="global-modal" tabindex="-1" data-backdrop="static" data-keyboard="false">
+      <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="global-modal-title"></h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span>&times;</span></button>
+              </div>
+              <div class="modal-body" id="global-modal-body"></div>
+          </div>
+      </div>
+    </div>
+
+    <!-- External JavaScript Files (BusinessesWallet URLs) - COMMENTED OUT FOR PERFORMANCE -->
+    <!--
+    <script src="https://estate.businesseswallet.com/assets/plugins/jquery/jquery.min.js"></script>
+    <script src="https://estate.businesseswallet.com/assets/plugins/jquery-ui/jquery-ui.js"></script>
+    <script src="https://estate.businesseswallet.com/assets/plugins/popper/popper.js"></script>
+    <script src="https://estate.businesseswallet.com/assets/plugins/feather-icon/feather.min.js"></script>
+    <script src="https://estate.businesseswallet.com/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://estate.businesseswallet.com/assets/plugins/jquery-validate/jquery.validate.min.js"></script>
+    <script src="https://estate.businesseswallet.com/assets/plugins/pace/pace.min.js"></script>
+    <script src="https://estate.businesseswallet.com/assets/plugins/toastr/toastr.min.js"></script>
+    <script src="https://estate.businesseswallet.com/assets/plugins/countup/counterup.min.js"></script>
+    <script src="https://estate.businesseswallet.com/assets/plugins/waypoints/waypoints.min.js"></script>
+    <script src="https://estate.businesseswallet.com/assets/plugins/simpler-sidebar/jquery.simpler-sidebar.min.js"></script>
+    <script src="https://estate.businesseswallet.com/assets/plugins/sweet-alert/sweetalert2.js"></script>
+    <script src="https://estate.businesseswallet.com/assets/plugins/select2/select2.min.js"></script>
+    <script src="https://estate.businesseswallet.com/assets/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="https://estate.businesseswallet.com/assets/js/jquery.slimscroll.min.js"></script>
+    <script src="https://estate.businesseswallet.com/assets/js/highlight.min.js"></script>
+    -->
+    <script src="https://cdn.jsdelivr.net/npm/number-to-words@1.2.4"></script>
+
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

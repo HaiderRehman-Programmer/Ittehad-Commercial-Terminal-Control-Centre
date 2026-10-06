@@ -1,0 +1,224 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+@import "tailwindcss";
+
+:root {
+  --sidebar-width: 250px;
+  --sidebar-bg: #0f172a; /* Premium Slate-900 */
+  --sidebar-hover: #1e293b;
+  --primary-color: #6366f1; /* Indigo-500 */
+  --secondary-color: #10b981; /* Emerald-500 */
+  --bg-color: #f8fafc; /* Slate-50 */
+  --surface-color: #ffffff;
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --radius-xl: 1rem;
+}
+
+/* Glassmorphism Utilities - Light/Airy */
+.glass-surface {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
+  border-radius: var(--radius-xl);
+}
+
+.glass-header {
+  background: rgba(248, 250, 252, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+  font-size: 16px; /* Standard 16-point font as requested */
+  line-height: 1.6;
+  color: var(--text-primary);
+  background-color: var(--bg-color);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+.app-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar-fixed {
+  width: var(--sidebar-width);
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1001;
+}
+
+.main-content-offset {
+  margin-left: var(--sidebar-width);
+  flex: 1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+  background-color: var(--bg-color);
+}
+
+@media (max-width: 1024px) {
+  .sidebar-fixed {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+  .sidebar-fixed.open {
+    transform: translateX(0);
+  }
+  .main-content-offset {
+    margin-left: 0;
+  }
+}
+
+/* Whitespace Enhancement */
+.card-premium {
+  background: var(--surface-color);
+  padding: 36px; /* Greatly Increased Whitespace for breathing room */
+  border-radius: var(--radius-xl);
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  margin-bottom: 24px;
+}
+
+/* Global Table Design - Corporate SaaS Standard */
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 14px; /* Much larger space between rows for decongested look */
+  font-size: 0.875rem;
+}
+
+thead th {
+  padding: 20px 32px !important;
+  text-align: left;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: #94a3b8; /* Slate-400 */
+  border-bottom: 2px solid #e2e8f0; /* Slate-200 */
+  font-size: 11px;
+}
+
+tbody tr {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  background-color: #ffffff;
+}
+
+tbody tr:hover {
+  background-color: #f8fafc; /* Slate-50 */
+  transform: scale(1.002);
+  box-shadow: inset 4px 0 0 #6366f1, 0 6px 12px -2px rgb(0 0 0 / 0.08); /* Indigo accent line and shadow */
+}
+
+tbody td {
+  padding: 24px 32px !important;
+  border-top: 1px solid #f1f5f9;
+  border-bottom: 1px solid #f1f5f9;
+  vertical-align: middle;
+  color: #334155; /* Slate-700 */
+  font-weight: 500;
+}
+
+/* Rounding corners on first and last columns for individual rows */
+tbody td:first-child { border-left: 1px solid #f1f5f9; border-top-left-radius: 12px; border-bottom-left-radius: 12px; }
+tbody td:last-child { border-right: 1px solid #f1f5f9; border-top-right-radius: 12px; border-bottom-right-radius: 12px; }
+
+/* Ultra-Premium Input Controls */
+input[type="text"], input[type="number"], input[type="email"], input[type="password"], input[type="date"], select, textarea {
+  transition: all 0.3s ease;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: #818cf8; /* Indigo-400 */
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1); /* Soft indigo glow */
+  background-color: #ffffff;
+}
+
+/* Touch Friendly Buttons */
+button {
+  min-height: 44px; /* Standard for mobile touchability */
+  padding: 0 16px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.heading-hero {
+  font-size: 2.25rem;
+  font-weight: 900;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+}
+
+.heading-section {
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 1.4;
+}
+
+/* === Phase 3: UI/UX Pro Max Utilities === */
+
+@keyframes shimmer-hc {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.skeleton-container {
+  overflow: hidden;
+  position: relative;
+  background-color: #0f172a; /* Deep Slate */
+  border-radius: 12px;
+}
+
+.shimmer-hc-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(99, 102, 241, 0.15) 45%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(99, 102, 241, 0.15) 55%,
+    transparent 100%
+  );
+  animation: shimmer-hc 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  z-index: 10;
+}
+
+.snappy-interaction {
+  transition: all 0.2s cubic-bezier(0.19, 1, 0.22, 1) !important;
+}
+
+.snappy-interaction:active {
+  transform: scale(0.96);
+}
+
+.snappy-interaction:hover {
+  transform: translateY(-1px);
+}
+
+/* Entrant Animation */
+@keyframes entrant-snappy {
+  0% { opacity: 0; transform: scale(0.98) translateY(10px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.animate-entrant {
+  animation: entrant-snappy 0.4s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+}
